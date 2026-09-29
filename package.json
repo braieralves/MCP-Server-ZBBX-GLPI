@@ -1,0 +1,39 @@
+{
+  "name": "zabbix-glpi-mcp",
+  "version": "1.0.0",
+  "main": "build/main.js",
+  "scripts": {
+    "test": "npm run build",
+    "build": "tsc",
+    "start": "node build/main.js",
+    "server": "node build/main.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "MCP server for querying and managing Zabbix and GLPI.",
+  "keywords": [
+    "mcp",
+    "zabbix",
+    "glpi",
+    "monitoring",
+    "model-context-protocol"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.9.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "typescript": "^5.8.3"
+  },
+  "type": "module",
+  "bin": {
+    "zabbix-glpi": "./build/main.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "build"
+  ]
+}

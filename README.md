@@ -309,25 +309,3 @@ Se o Claude disser que nao encontra o servidor, veja os logs do Claude Desktop n
 ```text
 %APPDATA%\Claude\logs
 ```
-
-## Criar e publicar no GitHub
-
-Este diretório foi preparado para virar um repositório novo. Antes de publicar, nunca coloque credenciais reais no GitHub; use `.env.example` como modelo e mantenha `.env` local no Ubuntu.
-
-Opção usando GitHub CLI no Ubuntu:
-
-```bash
-cd /opt/zabbix-glpi-mcp && git init && git branch -M main && git add . && git commit -m "Initial Zabbix GLPI MCP server" && gh repo create zabbix-glpi-mcp --private --source=. --remote=origin --push
-```
-
-Opção sem GitHub CLI:
-
-```bash
-cd /opt/zabbix-glpi-mcp && git init && git branch -M main && git add . && git commit -m "Initial Zabbix GLPI MCP server" && git remote add origin git@github.com:SEU_USUARIO/zabbix-glpi-mcp.git && git push -u origin main
-```
-
-Se você estiver trabalhando a partir deste clone do projeto exemplo original, remova o remote antigo antes de apontar para o seu repositório:
-
-```bash
-git remote remove origin
-```

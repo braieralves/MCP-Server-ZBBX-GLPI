@@ -4,14 +4,13 @@ Servidor MCP em Node.js/TypeScript para consultar, monitorar e administrar:
 
 - **Zabbix** em `ip_zabbix`
 - **GLPI** em `ip_glpi`
-<img width="1182" height="404" alt="zbbx_glpi" src="https://github.com/user-attachments/assets/6f390ff1-405f-46ee-98a2-1be02b17d8cf" />
 
 <img width="1659" height="734" alt="ai_ask_zbbx_glpi" src="https://github.com/user-attachments/assets/24081c01-d36f-4bff-b826-3bc4622989a3" />
 
 
-O servidor usa transporte MCP via `stdio` e expõe ferramentas genéricas para leitura e escrita nas APIs do Zabbix e do GLPI.
 
 ## Ferramentas MCP
+O servidor usa transporte MCP via `stdio` e expõe ferramentas genéricas para leitura e escrita nas APIs do Zabbix e do GLPI.
 
 ### Monitoramento
 

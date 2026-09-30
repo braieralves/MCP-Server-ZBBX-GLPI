@@ -2,8 +2,8 @@
 
 Servidor MCP em Node.js/TypeScript para consultar, monitorar e administrar:
 
-- **Zabbix** em `ip_zabbix`
-- **GLPI** em `ip_glpi`
+- **Zabbix** 
+- **GLPI** 
 
 <img width="1659" height="734" alt="ai_ask_zbbx_glpi" src="https://github.com/user-attachments/assets/24081c01-d36f-4bff-b826-3bc4622989a3" />
 

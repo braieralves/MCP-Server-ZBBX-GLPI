@@ -1,3 +1,4 @@
+<img width="1182" height="404" alt="zbbx_glpi" src="https://github.com/user-attachments/assets/6f390ff1-405f-46ee-98a2-1be02b17d8cf" />
 # Zabbix/GLPI MCP Server
 
 Servidor MCP em Node.js/TypeScript para consultar, monitorar e administrar:

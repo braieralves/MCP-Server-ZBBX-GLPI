@@ -198,17 +198,17 @@ If the AI client is on another machine, remember that this MCP server uses `stdi
 
 ## SSH Access from Windows to Ubuntu
 
-Use this flow when Claude Desktop runs on Windows and the MCP server runs on Ubuntu.
+Use this flow when AI client runs on Windows and the MCP server runs on Ubuntu.
 
 ### 1. Create SSH Key on Windows
 
 In Windows PowerShell:
 
 ```powershell
-ssh-keygen -t ed25519 -f "$env:USERPROFILE\.ssh\id_ed25519" -C "windows-claude-mcp"
+ssh-keygen -t ed25519 -f "$env:USERPROFILE\.ssh\id_ed25519" -C "windows-aiclient-mcp"
 ```
 
-When asked for a passphrase, press Enter to leave it empty. This avoids an interactive prompt when Claude Desktop starts the MCP.
+When asked for a passphrase, press Enter to leave it empty. This avoids an interactive prompt when AI client starts the MCP.
 
 ### 2. Copy the Public Key
 
@@ -222,7 +222,7 @@ Copy the full displayed line. It starts with `ssh-ed25519`.
 
 ### 3. Import the Key on Ubuntu
 
-On Ubuntu, using the user Claude will use via SSH:
+On Ubuntu, using the user AI client will use via SSH:
 
 ```bash
 mkdir -p ~/.ssh && chmod 700 ~/.ssh
@@ -249,7 +249,7 @@ The expected result is:
 OK
 ```
 
-If it asks for a password, Claude Desktop will also be unable to start the MCP. Check the user, IP, and permissions for `~/.ssh` and `~/.ssh/authorized_keys` on Ubuntu.
+If it asks for a password, AI client will also be unable to start the MCP. Check the user, IP, and permissions for `~/.ssh` and `~/.ssh/authorized_keys` on Ubuntu.
 
 ### 5. Test the MCP Wrapper via SSH
 
@@ -271,13 +271,7 @@ If a `bash\r` error appears, the file has Windows line endings. Fix it:
 cd /opt/zabbix-glpi-mcp && sed -i 's/\r$//' deploy/run-mcp.sh && chmod +x deploy/run-mcp.sh
 ```
 
-### 6. Configure Claude Desktop on Windows
-
-Edit or create:
-
-```text
-%APPDATA%\Claude\claude_desktop_config.json
-```
+### 6. Configure AI client 
 
 Example:
 
@@ -296,18 +290,14 @@ Example:
 }
 ```
 
-Then fully close Claude Desktop and open it again.
+Then fully close AI client and open it again.
 
-### 7. Validate in Claude
+### 7. Validate in AI client 
 
-Ask Claude:
+Ask:
 
 ```text
 Use the zabbix-glpi MCP and call check-all.
 ```
 
-If Claude says it cannot find the server, check the Claude Desktop logs on the machine where it runs:
 
-```text
-%APPDATA%\Claude\logs
-```

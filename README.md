@@ -1,33 +1,32 @@
+```markdown
 # Zabbix/GLPI MCP Server
 
-Servidor MCP em Node.js/TypeScript para consultar, monitorar e administrar:
+Node.js/TypeScript MCP server for querying, monitoring, and administering:
 
-- **Zabbix** 
-- **GLPI** 
-
+- **Zabbix**
+- **GLPI**
 <img width="1659" height="734" alt="ai_ask_zbbx_glpi" src="https://github.com/user-attachments/assets/24081c01-d36f-4bff-b826-3bc4622989a3" />
 
+## MCP Tools
 
+The server uses MCP transport via `stdio` and exposes generic tools for reading and writing to the Zabbix and GLPI APIs.
 
-## Ferramentas MCP
-O servidor usa transporte MCP via `stdio` e expõe ferramentas genéricas para leitura e escrita nas APIs do Zabbix e do GLPI.
+### Monitoring
 
-### Monitoramento
-
-- **check-zabbix**: verifica Web UI, API JSON-RPC e porta TCP `10051`.
-- **check-glpi**: verifica Web UI/API GLPI e portas TCP configuradas.
-- **check-all**: executa os checks de Zabbix e GLPI.
-- **check-host**: verifica portas TCP arbitrárias em qualquer host.
-- **check-lpi**: alias de compatibilidade para `check-glpi`.
+- **check-zabbix**: checks the Web UI, JSON-RPC API, and TCP port `10051`.
+- **check-glpi**: checks the GLPI Web UI/API and configured TCP ports.
+- **check-all**: runs both Zabbix and GLPI checks.
+- **check-host**: checks arbitrary TCP ports on any host.
+- **check-lpi**: compatibility alias for `check-glpi`.
 
 ### Zabbix
 
-- **zabbix-api-version**: retorna a versão da API.
-- **zabbix-api-call**: chama qualquer método JSON-RPC do Zabbix.
+- **zabbix-api-version**: returns the API version.
+- **zabbix-api-call**: calls any Zabbix JSON-RPC method.
 
-Para Zabbix 7.2 ou superior, a autenticação é enviada no header HTTP `Authorization: Bearer <token>`. O servidor não envia o campo `auth` no corpo JSON-RPC.
+For Zabbix 7.2 or later, authentication is sent in the HTTP header `Authorization: ******`. The server does not send the `auth` field in the JSON-RPC body.
 
-Exemplos de métodos Zabbix:
+Example Zabbix methods:
 
 - `host.get`
 - `item.get`
@@ -41,14 +40,14 @@ Exemplos de métodos Zabbix:
 
 ### GLPI
 
-- **glpi-request**: chama qualquer path da API REST do GLPI com `GET`, `POST`, `PUT`, `PATCH` ou `DELETE`.
-- **glpi-search**: pesquisa qualquer tipo de item GLPI.
-- **glpi-get-item**: lê um item por tipo e ID.
-- **glpi-create-item**: cria um item.
-- **glpi-update-item**: atualiza um item.
-- **glpi-delete-item**: remove um item.
+- **glpi-request**: calls any GLPI REST API path using `GET`, `POST`, `PUT`, `PATCH`, or `DELETE`.
+- **glpi-search**: searches any GLPI item type.
+- **glpi-get-item**: reads an item by type and ID.
+- **glpi-create-item**: creates an item.
+- **glpi-update-item**: updates an item.
+- **glpi-delete-item**: removes an item.
 
-Exemplos de tipos GLPI:
+Example GLPI types:
 
 - `Ticket`
 - `Computer`
@@ -60,43 +59,43 @@ Exemplos de tipos GLPI:
 - `Monitor`
 - `Printer`
 
-## Configuração
+## Configuration
 
-As configurações padrão já apontam para os IPs informados. Para consultas autenticadas e operações de criação/alteração, configure credenciais via variáveis de ambiente.
+The default settings already point to the provided IPs. For authenticated queries and create/update operations, configure credentials through environment variables.
 
-| Variável | Padrão | Descrição |
+| Variable | Default | Description |
 | --- | --- | --- |
-| `ZABBIX_HOST` | `ip_zabbix` | Host usado para checks TCP do Zabbix |
-| `ZABBIX_URL` | `http://ip_zabbix` | URL base da interface web/API |
-| `ZABBIX_API_URL` | vazio | URL exata da API JSON-RPC |
-| `ZABBIX_AUTH_TOKEN` | vazio | Token de API do Zabbix |
-| `ZABBIX_USERNAME` | vazio | Usuário Zabbix, usado se não houver token |
-| `ZABBIX_PASSWORD` | vazio | Senha Zabbix, usada se não houver token |
-| `ZABBIX_SERVER_PORT` | `10051` | Porta TCP do Zabbix Server |
-| `GLPI_HOST` | `ip_glpi` | Host usado para checks TCP do GLPI |
-| `GLPI_URL` | `http://ip_glpi` | URL base do GLPI |
-| `GLPI_API_URL` | `http://ip_glpi/apirest.php` | URL base da API REST do GLPI |
-| `GLPI_PORTS` | `80` | Lista de portas TCP separadas por vírgula |
-| `GLPI_APP_TOKEN` | vazio | App token do GLPI, se configurado |
-| `GLPI_USER_TOKEN` | vazio | User token do GLPI |
-| `GLPI_SESSION_TOKEN` | vazio | Session token já criado, se quiser evitar `initSession` |
-| `GLPI_USERNAME` | vazio | Usuário GLPI, usado se não houver user/session token |
-| `GLPI_PASSWORD` | vazio | Senha GLPI, usada se não houver user/session token |
-| `MONITOR_TIMEOUT_MS` | `3000` | Timeout por check/chamada em milissegundos |
+| `ZABBIX_HOST` | `ip_zabbix` | Host used for Zabbix TCP checks |
+| `ZABBIX_URL` | `http://ip_zabbix` | Base URL of the web interface/API |
+| `ZABBIX_API_URL` | empty | Exact JSON-RPC API URL |
+| `ZABBIX_AUTH_TOKEN` | empty | Zabbix API token |
+| `ZABBIX_USERNAME` | empty | Zabbix user, used if no token exists |
+| `ZABBIX_PASSWORD` | empty | Zabbix password, used if no token exists |
+| `ZABBIX_SERVER_PORT` | `10051` | Zabbix Server TCP port |
+| `GLPI_HOST` | `ip_glpi` | Host used for GLPI TCP checks |
+| `GLPI_URL` | `http://ip_glpi` | GLPI base URL |
+| `GLPI_API_URL` | `http://ip_glpi/apirest.php` | GLPI REST API base URL |
+| `GLPI_PORTS` | `80` | Comma-separated list of TCP ports |
+| `GLPI_APP_TOKEN` | empty | GLPI app token, if configured |
+| `GLPI_USER_TOKEN` | empty | GLPI user token |
+| `GLPI_SESSION_TOKEN` | empty | Existing session token, if you want to avoid `initSession` |
+| `GLPI_USERNAME` | empty | GLPI user, used if no user/session token exists |
+| `GLPI_PASSWORD` | empty | GLPI password, used if no user/session token exists |
+| `MONITOR_TIMEOUT_MS` | `3000` | Timeout per check/call in milliseconds |
 
-As variáveis antigas `LPI_HOST`, `LPI_URL` e `LPI_PORTS` ainda são aceitas como fallback para GLPI.
+The old variables `LPI_HOST`, `LPI_URL`, and `LPI_PORTS` are still accepted as a fallback for GLPI.
 
-## Dependências no Ubuntu
+## Ubuntu Dependencies
 
-Instale no servidor Ubuntu:
+Install on the Ubuntu server:
 
-- Node.js 18 ou superior. Recomendado: Node.js 20 LTS ou 22 LTS.
+- Node.js 18 or later. Recommended: Node.js 20 LTS or 22 LTS.
 - npm.
-- git, se for clonar o repositório direto no servidor.
-- ca-certificates e curl.
-- Acesso de rede do servidor MCP para `ip_zabbix` e `ip_glpi`.
+- git, if cloning the repository directly on the server.
+- ca-certificates and curl.
+- Network access from the MCP server to `ip_zabbix` and `ip_glpi`.
 
-Comandos para Ubuntu 22.04/24.04 usando NodeSource Node.js 20:
+Commands for Ubuntu 22.04/24.04 using NodeSource Node.js 20:
 
 ```bash
 sudo apt-get update && sudo apt-get install -y ca-certificates curl git
@@ -106,9 +105,9 @@ node --version
 npm --version
 ```
 
-## Instalação no servidor Ubuntu
+## Installation on the Ubuntu Server
 
-Clone ou copie este projeto para o Ubuntu. Exemplo usando `/opt/zabbix-glpi-mcp`:
+Clone or copy this project to Ubuntu. Example using `/opt/zabbix-glpi-mcp`:
 
 ```bash
 sudo mkdir -p /opt/zabbix-glpi-mcp && sudo chown "$USER":"$USER" /opt/zabbix-glpi-mcp
@@ -118,61 +117,61 @@ npm ci
 npm run build
 ```
 
-Se você copiar a pasta manualmente em vez de clonar, rode dentro dela:
+If you manually copy the folder instead of cloning it, run inside it:
 
 ```bash
 npm ci && npm run build
 ```
 
-Se usar o wrapper incluído no repositório:
+If using the wrapper included in the repository:
 
 ```bash
 sudo cp deploy/run-mcp.sh /usr/local/bin/zabbix-glpi-mcp && sudo chmod +x /usr/local/bin/zabbix-glpi-mcp
 ```
 
-## Variáveis de ambiente no Ubuntu
+## Environment Variables on Ubuntu
 
-Crie um arquivo `/opt/zabbix-glpi-mcp/.env` com as credenciais reais:
+Create a `/opt/zabbix-glpi-mcp/.env` file with the real credentials:
 
 ```bash
 ZABBIX_HOST=ip_zabbix
 ZABBIX_URL=http://ip_zabbix
 ZABBIX_API_URL=http://ip_zabbix/api_jsonrpc.php
-ZABBIX_AUTH_TOKEN=coloque-o-token-aqui
+ZABBIX_AUTH_TOKEN=put-the-token-here
 GLPI_HOST=ip_glpi
 GLPI_URL=http://ip_glpi
 GLPI_API_URL=http://ip_glpi/apirest.php
-GLPI_APP_TOKEN=coloque-o-app-token-aqui
-GLPI_USER_TOKEN=coloque-o-user-token-aqui
+GLPI_APP_TOKEN=put-the-app-token-here
+GLPI_USER_TOKEN=put-the-user-token-here
 GLPI_PORTS=80
 MONITOR_TIMEOUT_MS=5000
 ```
 
-Alternativa sem token Zabbix:
+Alternative without a Zabbix token:
 
 ```bash
 ZABBIX_USERNAME=Admin
-ZABBIX_PASSWORD=sua-senha
+ZABBIX_PASSWORD=your-password
 ```
 
-Alternativa sem user token GLPI:
+Alternative without a GLPI user token:
 
 ```bash
 GLPI_USERNAME=glpi
-GLPI_PASSWORD=sua-senha
+GLPI_PASSWORD=your-password
 ```
 
-## Teste local no Ubuntu
+## Local Test on Ubuntu
 
 ```bash
 cd /opt/zabbix-glpi-mcp && set -a && . ./.env && set +a && npm start
 ```
 
-O processo fica aguardando chamadas MCP via `stdio`; isso é esperado. O cliente MCP normalmente inicia esse comando automaticamente.
+The process waits for MCP calls via `stdio`; this is expected. The MCP client normally starts this command automatically.
 
-## Configuração no cliente MCP
+## MCP Client Configuration
 
-Exemplo para um cliente MCP que roda no mesmo servidor Ubuntu:
+Example for an MCP client running on the same Ubuntu server:
 
 ```json
 {
@@ -195,92 +194,92 @@ Exemplo para um cliente MCP que roda no mesmo servidor Ubuntu:
 }
 ```
 
-Se o AI client estiver em outra máquina, lembre que este servidor MCP usa `stdio`; o cliente precisa conseguir iniciar o processo no Ubuntu, por exemplo via SSH. O SSH precisa funcionar sem prompt interativo de senha.
+If the AI client is on another machine, remember that this MCP server uses `stdio`; the client must be able to start the process on Ubuntu, for example via SSH. SSH must work without an interactive password prompt.
 
-## Acesso SSH do Windows para Ubuntu
+## SSH Access from Windows to Ubuntu
 
-Use este fluxo quando o Claude Desktop roda no Windows e o MCP server roda no Ubuntu.
+Use this flow when Claude Desktop runs on Windows and the MCP server runs on Ubuntu.
 
-### 1. Criar chave SSH no Windows
+### 1. Create SSH Key on Windows
 
-No PowerShell do Windows:
+In Windows PowerShell:
 
 ```powershell
 ssh-keygen -t ed25519 -f "$env:USERPROFILE\.ssh\id_ed25519" -C "windows-claude-mcp"
 ```
 
-Quando pedir passphrase, pressione Enter para deixar vazio. Isso evita prompt interativo quando o Claude Desktop iniciar o MCP.
+When asked for a passphrase, press Enter to leave it empty. This avoids an interactive prompt when Claude Desktop starts the MCP.
 
-### 2. Copiar a chave publica
+### 2. Copy the Public Key
 
-No PowerShell:
+In PowerShell:
 
 ```powershell
 type "$env:USERPROFILE\.ssh\id_ed25519.pub"
 ```
 
-Copie a linha inteira exibida. Ela começa com `ssh-ed25519`.
+Copy the full displayed line. It starts with `ssh-ed25519`.
 
-### 3. Importar a chave no Ubuntu
+### 3. Import the Key on Ubuntu
 
-No Ubuntu, com o usuario que o Claude vai usar via SSH:
+On Ubuntu, using the user Claude will use via SSH:
 
 ```bash
 mkdir -p ~/.ssh && chmod 700 ~/.ssh
 nano ~/.ssh/authorized_keys
 ```
 
-Cole a chave publica em uma nova linha, salve o arquivo e ajuste as permissoes:
+Paste the public key on a new line, save the file, and adjust permissions:
 
 ```bash
 chmod 600 ~/.ssh/authorized_keys
 ```
 
-### 4. Testar SSH sem senha
+### 4. Test Passwordless SSH
 
-No PowerShell do Windows:
+In Windows PowerShell:
 
 ```powershell
-ssh usuario@IP_DO_UBUNTU "echo OK"
+ssh user@UBUNTU_IP "echo OK"
 ```
 
-O resultado esperado e:
+The expected result is:
 
 ```text
 OK
 ```
 
-Se pedir senha, o Claude Desktop tambem nao vai conseguir iniciar o MCP. Verifique usuario, IP e permissoes de `~/.ssh` e `~/.ssh/authorized_keys` no Ubuntu.
+If it asks for a password, Claude Desktop will also be unable to start the MCP. Check the user, IP, and permissions for `~/.ssh` and `~/.ssh/authorized_keys` on Ubuntu.
 
-### 5. Testar o wrapper do MCP via SSH
+### 5. Test the MCP Wrapper via SSH
 
-No PowerShell:
+In PowerShell:
 
 ```powershell
-ssh -T usuario@IP_DO_UBUNTU "test -x /opt/zabbix-glpi-mcp/deploy/run-mcp.sh && echo OK"
+ssh -T user@UBUNTU_IP "test -x /opt/zabbix-glpi-mcp/deploy/run-mcp.sh && echo OK"
 ```
 
-Se nao retornar `OK`, corrija no Ubuntu:
+If it does not return `OK`, fix it on Ubuntu:
 
 ```bash
 chmod +x /opt/zabbix-glpi-mcp/deploy/run-mcp.sh
 ```
 
-Se aparecer erro `bash\r`, o arquivo esta com final de linha Windows. Corrija:
+If a `bash\r` error appears, the file has Windows line endings. Fix it:
 
 ```bash
 cd /opt/zabbix-glpi-mcp && sed -i 's/\r$//' deploy/run-mcp.sh && chmod +x deploy/run-mcp.sh
 ```
 
-### 6. Configurar Claude Desktop no Windows
+### 6. Configure Claude Desktop on Windows
 
-Edite ou crie:
+Edit or create:
 
 ```text
 %APPDATA%\Claude\claude_desktop_config.json
 ```
 
-Exemplo:
+Example:
 
 ```json
 {
@@ -289,7 +288,7 @@ Exemplo:
       "command": "C:\\Windows\\System32\\OpenSSH\\ssh.exe",
       "args": [
         "-T",
-        "usuario@IP_DO_UBUNTU",
+        "user@UBUNTU_IP",
         "bash -lc '/opt/zabbix-glpi-mcp/deploy/run-mcp.sh'"
       ]
     }
@@ -297,18 +296,19 @@ Exemplo:
 }
 ```
 
-Depois feche totalmente o Claude Desktop e abra novamente.
+Then fully close Claude Desktop and open it again.
 
-### 7. Validar no Claude
+### 7. Validate in Claude
 
-Peça ao Claude:
+Ask Claude:
 
 ```text
-Use o MCP zabbix-glpi e chame check-all.
+Use the zabbix-glpi MCP and call check-all.
 ```
 
-Se o Claude disser que nao encontra o servidor, veja os logs do Claude Desktop na maquina onde ele roda:
+If Claude says it cannot find the server, check the Claude Desktop logs on the machine where it runs:
 
 ```text
 %APPDATA%\Claude\logs
+```
 ```

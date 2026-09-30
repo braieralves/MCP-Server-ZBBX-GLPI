@@ -109,7 +109,7 @@ Clone ou copie este projeto para o Ubuntu. Exemplo usando `/opt/zabbix-glpi-mcp`
 
 ```bash
 sudo mkdir -p /opt/zabbix-glpi-mcp && sudo chown "$USER":"$USER" /opt/zabbix-glpi-mcp
-git clone https://github.com/braieralves/mcp-server-braier.git /opt/zabbix-glpi-mcp
+git clone https://github.com/braieralves/MCP-Server-ZBBX-GLPI.git /opt/zabbix-glpi-mcp
 cd /opt/zabbix-glpi-mcp
 npm ci
 npm run build
